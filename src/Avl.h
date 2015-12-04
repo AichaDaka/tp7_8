@@ -3,13 +3,12 @@
 #include "Element.h"
 
 
-typedef struct
+typedef struct Noeud
 {
+	struct Noeud *fg;
+	struct Noeud * fd;
 	Element info;
 	int diff;
-	struct Noeud * fg;
-	struct Noeud * fd;
-	struct Noeud * pere;
 } Noeud;
 
 typedef struct

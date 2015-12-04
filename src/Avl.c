@@ -13,25 +13,24 @@ void initialisationAVL(Avl a) {
     n->info = 0;
     n->fg = NULL;
     n->fd = NULL;
-    n->pere = NULL;
 
     a.racine = n;
 
 }
 
 /*Fonction de rotation droite*/
-void rotationDroiteAVL(Avl a, Noeud *pn) {
+void rotationDroiteAVL(Avl *a, Noeud *pn) {
     Noeud *pg;
     pg = pn->fg;
     pn->fg = pg->fd;
     pg->fd = pn;
     pn = pg;
     pn->diff = 0;
-    //pn->fd->diff =
+    pn->fd->diff=0;
 }
 
 /*Fonction de rotation gauche*/
-void rotationGaucheAVL(Avl a, Noeud * pn) {
+void rotationGaucheAVL(Avl *a, Noeud * pn) {
     Noeud *pg;
     pg = pn->fd;
     pn->fd = pg->fg;
