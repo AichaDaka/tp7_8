@@ -4,8 +4,8 @@ include_directories(src)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-        src/AVL.c
-        src/AVL.h
+        src/Avl.c
+        src/Avl.h
         src/Collection.c
         src/Collection.h
         src/Element.c

@@ -3,7 +3,7 @@
 #include "Collection.h"
 
 
-void initialiserCollection(Collection a) {
+void initialiserCollection(Collection* a) {
 
     /*noeud * n = new
     noeud;

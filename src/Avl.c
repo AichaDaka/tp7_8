@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "AVL.h"
+#include "Avl.h"
 
-void initialisationAVL(AVL a) {
+void initialisationAVL(Avl a) {
 
     a.racine = NULL;
     Noeud *n = malloc(sizeof(Noeud));
@@ -20,7 +20,7 @@ void initialisationAVL(AVL a) {
 }
 
 /*Fonction de rotation droite*/
-void rotationDroiteAVL(AVL  a, Noeud *pn) {
+void rotationDroiteAVL(Avl a, Noeud *pn) {
     Noeud *pg;
     pg = pn->fg;
     pn->fg = pg->fd;
@@ -31,7 +31,7 @@ void rotationDroiteAVL(AVL  a, Noeud *pn) {
 }
 
 /*Fonction de rotation gauche*/
-void rotationGaucheAVL(AVL a, Noeud * pn) {
+void rotationGaucheAVL(Avl a, Noeud * pn) {
     Noeud *pg;
     pg = pn->fd;
     pn->fd = pg->fg;

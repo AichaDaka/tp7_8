@@ -2,7 +2,6 @@
 #define _collection
 
 #include "Element.h"
-#include "Collection.h"
 enum Couleur{R,N};
 
 
@@ -12,16 +11,18 @@ typedef struct
 } Collection;
 
 
-//initialisation sans elements
-void initialiserCollection(Collection a);
+/**
+ * @brief
+ */
+void initialiserCollection(Collection* a);
 
-void testament(Collection collection);
+void testament(Collection *collection);
 
 void insererElement(Collection *pos, Element val);
 
-int rechercherElement(Collection collection, Element element);
+int rechercherElement(Collection *collection, Element element);
 
-void afficherABR(Collection collection);
+void afficherABR(Collection *collection);
 
 
 

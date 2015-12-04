@@ -5,8 +5,12 @@ EXE 		= bin/executable
 COMP		= @gcc
 LINK		= @gcc
 
+# Choix de l'implementation
+#IMPLEMENATION = AVL
+IMPLEMENATION = ARN
+
 # Options de compilation et editions de liens
-CPPFLAGS	= -Wall -ansi -ggdb -std=c99
+CPPFLAGS	= -Wall -ansi -ggdb -std=c99 -D$(IMPLEMENATION)
 EDLFLAGS	=
 
 #Dossiers
@@ -14,7 +18,7 @@ SRC_DIR		= src
 OBJ_DIR		= obj
 
 #Fichiers
-INTERFACES_FILES		= AVL.h Collection.h Element.h																# Mettre les .h ici
+INTERFACES_FILES		= Avl.h Collection.h Element.h																# Mettre les .h ici
 INT 					= $(addprefix $(SRC_DIR)/, $(INTERFACES_FILES))					# construit le chemin des sources 
 OBJ						= $(addprefix $(OBJ_DIR)/, $(INTERFACES_FILES:.h=.o))			# Génération du nom des fichiers obj
 MAIN_OBJ 				= $(OBJ_DIR)/main.o												# .o du fichier ou se trouve le main
@@ -31,6 +35,10 @@ $(EXE): $(OBJ) $(MAIN_OBJ)
 
 #Mettre les dependances particulieres ici
 $(MAIN_OBJ): $(INT)
+
+Collection.o : Collection.h
+
+Avl.o : Avl.h Element.h
 
 #Generation des fichiers obj
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c

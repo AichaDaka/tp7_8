@@ -15,7 +15,7 @@ typedef struct
 typedef struct
 {
 	Noeud * racine;
-} AVL;
+} Avl;
 
 
 void rotationGauche(Noeud *n);
