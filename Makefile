@@ -1,5 +1,5 @@
 # Makefile à completer pour vos besoins
-EXE 		= executable
+EXE 		= bin/executable
 
 # Compilateur et editeur de lien
 COMP		= @gcc
