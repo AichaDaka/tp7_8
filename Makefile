@@ -6,8 +6,8 @@ COMP		= @gcc
 LINK		= @gcc
 
 # Choix de l'implementation
-#IMPLEMENATION = AVL
-IMPLEMENATION = ARN
+IMPLEMENATION = AVL
+#IMPLEMENATION = ARN
 
 # Options de compilation et editions de liens
 CPPFLAGS	= -Wall -ansi -ggdb -std=c99 -D$(IMPLEMENATION)

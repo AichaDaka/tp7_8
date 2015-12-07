@@ -2,10 +2,16 @@ cmake_minimum_required(VERSION 2.8)
 project(TP7_8)
 
 include_directories(src) # Pour que l'IDE inclu le contenu de mes headers
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -ansi -ggdb -std=c99")
 
 # Macros du préprocesseur
 add_definitions(-DAVL)
+#add_definitions(-DARN)
+
+#Repertoires executable et obj
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
+set(OBJECT_DIR  "${CMAKE_CURRENT_SOURCE_DIR}/obj")
+
 
 set(SOURCE_FILES
         src/Avl.c
