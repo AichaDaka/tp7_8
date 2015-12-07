@@ -2,39 +2,44 @@
 #include <stdlib.h>
 #include "Avl.h"
 
-void initialisationAVL(Avl a) {
 
-    a.racine = NULL;
+/**
+ * @brief Crée un noeud avec element comme info
+ * @fn static Noeud *creerNoeud(Element element)
+ */
+static Noeud *creerNoeud(Element element) {
     Noeud *n = malloc(sizeof(Noeud));
-    Noeud;
-
+    n->info = element;
     n->diff = 0;
+    n->filsDroit = NULL;
+    n->filsGauche = NULL;
 
-    n->info = 0;
-    n->fg = NULL;
-    n->fd = NULL;
+    return n;
+}
 
-    a.racine = n;
+
+void initialiserAvl(Avl *a) {
+    a->racine = NULL;
 
 }
 
 /*Fonction de rotation droite*/
 void rotationDroiteAVL(Avl *a, Noeud *pn) {
     Noeud *pg;
-    pg = pn->fg;
-    pn->fg = pg->fd;
-    pg->fd = pn;
+    pg = pn->filsGauche;
+    pn->filsGauche = pg->filsDroit;
+    pg->filsDroit = pn;
     pn = pg;
     pn->diff = 0;
-    pn->fd->diff=0;
+    pn->filsDroit->diff = 0;
 }
 
 /*Fonction de rotation gauche*/
-void rotationGaucheAVL(Avl *a, Noeud * pn) {
+void rotationGaucheAVL(Avl *a, Noeud *pn) {
     Noeud *pg;
-    pg = pn->fd;
-    pn->fd = pg->fg;
-    pg->fg = pn;
+    pg = pn->filsDroit;
+    pn->filsDroit = pg->filsGauche;
+    pg->filsGauche = pn;
     pn = pg;
     pn->diff = 0;
     //pn->fg->diff = 0;
