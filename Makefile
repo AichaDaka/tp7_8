@@ -36,9 +36,11 @@ $(EXE): $(OBJ) $(MAIN_OBJ)
 #Mettre les dependances particulieres ici
 $(MAIN_OBJ): $(INT)
 
-Collection.o : Collection.h
+$(OBJ_DIR)/Collection.o : $(SRC_DIR)/Collection.h
 
-Avl.o : Avl.h Element.h
+$(OBJ_DIR)/Avl.o : $(SRC_DIR)/Avl.h $(SRC_DIR)/Element.h
+
+$(OBJ_DIR)/Element.o : $(SRC_DIR)/Element.h
 
 #Generation des fichiers obj
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c

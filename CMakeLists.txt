@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 2.8)
 project(TP7_8)
-include_directories(src)
+
+include_directories(src) # Pour que l'IDE inclu le contenu de mes headers
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+
+# Macros du préprocesseur
+add_definitions(-DAVL)
 
 set(SOURCE_FILES
         src/Avl.c
