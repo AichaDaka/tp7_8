@@ -23,7 +23,17 @@ void initialiserAvl(Avl *a) {
 
 }
 
-/*Fonction de rotation droite*/
+void testamentAvl(Avl *a) {
+    // TODO
+}
+
+void insererElementDansAvl(Avl *a, Element element) {
+    // TODO :
+}
+
+/**
+ * Fonction de rotation droite
+ */
 void rotationDroiteAVL(Avl *a, Noeud *pn) {
     Noeud *pg;
     pg = pn->filsGauche;
@@ -91,3 +101,5 @@ diff = -1;
 }
 }
 */
+
+

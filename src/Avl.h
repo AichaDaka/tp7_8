@@ -41,7 +41,7 @@ void testamentAvl(Avl *a);
 /**
  * Insère un élément dans l'AVL
  */
-void insererElement(Avl * a, Element element);
+void insererElementDansAvl(Avl *a, Element element);
 
 void rotationGauche(Noeud *n);
 

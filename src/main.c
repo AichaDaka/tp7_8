@@ -1,17 +1,11 @@
 #include <stdio.h>
-#include <stdlib.h>
-
 #include "Collection.h"
 
 
-int main(int argc, char const *ar[])
-{
-	Collection a;
-	Element e;
+int main(int argc, char const *ar[]) {
+    Collection a;
+    initialiserCollection(&a);
 
-#ifdef AVL
-    printf("Coucou\n");
-#endif
-
-	return 0;
+    testament(&a);
+    return 0;
 }
