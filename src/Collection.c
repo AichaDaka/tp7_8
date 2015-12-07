@@ -1,22 +1,33 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "Collection.h"
+#include "Avl.h"
+
+void initialiserCollection(Collection *collection) {
+
+#ifdef AVL
+    initialiserAvl((Avl*)collection->racine);
+#else
+    // TODO : initialiserArn(a->racine)
+#endif
+
+}
 
 
-void initialiserCollection(Collection* a) {
 
-    /*noeud * n = new
-    noeud;
+void testament(Collection *collection) {
+#ifdef AVL
+    testamentAvl((Avl*)collection->racine);
+#else
+    // TODO : testamentArn((Avl*)collection->racine);
+#endif
 
-    n->c = N;
+}
 
-    n->info = e;
-    n->fg = NULL;
-    n->fd = NULL;
-    n->pere = NULL;
-
-    a.racine = n;*/
-
+void insererElementDansCollection(Collection *pos, Element val) {
+#ifdef AVL
+    insererElementDansAvl(pos->racine, val);
+#else
+    // TODO : insererElementDansArn(pos->racine, val);
+#endif
 }
 
 
@@ -132,7 +143,6 @@ void rbtree_print(const arbre & tree) {
 
 
 */
-
 
 
 

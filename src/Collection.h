@@ -2,29 +2,30 @@
 #define _collection
 
 #include "Element.h"
-enum Couleur{R,N};
 
-
-typedef struct
-{
-	void * racine;
+typedef struct {
+    void *racine;
 } Collection;
 
 
 /**
- * @brief
+ * @brief Initialise une nouvelle collection
  */
-void initialiserCollection(Collection* a);
+void initialiserCollection(Collection *a);
 
+/**
+ * Testament de la collection initialisée
+ */
 void testament(Collection *collection);
 
-void insererElement(Collection *pos, Element val);
+/**
+ * Insère un élément dans la collection
+ */
+void insererElementDansCollection(Collection *pos, Element val);
 
-int rechercherElement(Collection *collection, Element element);
+int rechercherElement(const Collection const *collection, Element element);
 
-void afficherABR(Collection *collection);
-
-
+void afficherABR(const Collection const *collection);
 
 
 #endif
