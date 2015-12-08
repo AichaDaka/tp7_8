@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Avl.h"
+#include "Utils.h"
 
 
 /**
  * @brief Crée un noeud avec element comme info
  * @fn static Noeud *creerNoeud(Element element)
  */
-static Noeud *creerNoeud(Element element) {
+static Noeud *creerNoeud(Element element)
+{
     Noeud *n = malloc(sizeof(Noeud));
     n->info = element;
     n->diff = 0;
@@ -55,10 +57,20 @@ void rotationGaucheAVL(Avl *a, Noeud *pn) {
     //pn->fg->diff = 0;
 }
 
+static int calculHauteur(Noeud * noeud){
+    if(noeud == NULL)
+        return 0;
+    else return  1 + MAX(calculHauteur(noeud->filsDroit),calculHauteur(noeud->filsGauche));
+}
+
+int calculerHauteur(const Avl *avl) {
+    return calculHauteur(avl->racine);
+}
+
 
 /* Fonction d'insererElement d'un AVL */
 /*
-void insertionAVL(AVL & a, Noeud * ṕn, Element x,
+void insertionAVL(AVL & a, Noeud * pn, Element x,
 bool b
 ){
 int n

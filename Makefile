@@ -18,7 +18,7 @@ SRC_DIR		= src
 OBJ_DIR		= obj
 
 #Fichiers
-INTERFACES_FILES		= Avl.h Collection.h Element.h																# Mettre les .h ici
+INTERFACES_FILES		= Avl.h Collection.h Element.h Utils.h																# Mettre les .h ici
 INT 					= $(addprefix $(SRC_DIR)/, $(INTERFACES_FILES))					# construit le chemin des sources 
 OBJ						= $(addprefix $(OBJ_DIR)/, $(INTERFACES_FILES:.h=.o))			# Génération du nom des fichiers obj
 MAIN_OBJ 				= $(OBJ_DIR)/main.o												# .o du fichier ou se trouve le main
@@ -38,7 +38,7 @@ $(MAIN_OBJ): $(INT)
 
 $(OBJ_DIR)/Collection.o : $(SRC_DIR)/Collection.h
 
-$(OBJ_DIR)/Avl.o : $(SRC_DIR)/Avl.h $(SRC_DIR)/Element.h
+$(OBJ_DIR)/Avl.o : $(SRC_DIR)/Avl.h $(SRC_DIR)/Element.h $(SRC_DIR)/Utils.h
 
 $(OBJ_DIR)/Element.o : $(SRC_DIR)/Element.h
 

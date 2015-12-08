@@ -24,7 +24,6 @@ typedef struct {
      * Racine de l'arbre
      */
     Noeud *racine;
-
 } Avl;
 
 /**
@@ -37,6 +36,10 @@ void initialiserAvl(Avl *a);
  */
 void testamentAvl(Avl *a);
 
+/**
+ * Retourne la hauteur de l'arbre
+ */
+int calculerHauteur(const Avl *avl);
 
 /**
  * Insère un élément dans l'AVL

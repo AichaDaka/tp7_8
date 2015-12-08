@@ -1,7 +1,8 @@
 #include "Collection.h"
 #include "Avl.h"
 
-void initialiserCollection(Collection *collection) {
+void initialiserCollection(Collection *collection)
+{
 
 #ifdef AVL
     initialiserAvl((Avl*)collection->racine);
@@ -13,7 +14,8 @@ void initialiserCollection(Collection *collection) {
 
 
 
-void testament(Collection *collection) {
+void testament(Collection *collection)
+{
 #ifdef AVL
     testamentAvl((Avl*)collection->racine);
 #else
