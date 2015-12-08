@@ -39,7 +39,7 @@ void testamentAvl(Avl *a);
 /**
  * Retourne la hauteur de l'arbre
  */
-int calculerHauteur(const Avl *avl);
+int calculerHauteurAvl(const Avl *avl);
 
 /**
  * Insère un élément dans l'AVL

@@ -63,7 +63,7 @@ static int calculHauteur(Noeud * noeud){
     else return  1 + MAX(calculHauteur(noeud->filsDroit),calculHauteur(noeud->filsGauche));
 }
 
-int calculerHauteur(const Avl *avl) {
+int calculerHauteurAvl(const Avl *avl) {
     return calculHauteur(avl->racine);
 }
 
