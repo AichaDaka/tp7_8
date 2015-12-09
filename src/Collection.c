@@ -1,11 +1,14 @@
+#include <stdlib.h>
 #include "Collection.h"
 #include "Avl.h"
 
 void initialiserCollection(Collection *collection)
 {
 
+
 #ifdef AVL
-    initialiserAvl((Avl*)collection->racine);
+    collection->racine = (Avl*) malloc(sizeof(Avl));
+    initialiserAvl(collection->racine);
 #else
     // TODO : initialiserArn(a->racine)
 #endif
@@ -14,10 +17,11 @@ void initialiserCollection(Collection *collection)
 
 
 
-void testament(Collection *collection)
+void testamentCollection(Collection *collection)
 {
 #ifdef AVL
     testamentAvl((Avl*)collection->racine);
+    free(collection->racine);
 #else
     // TODO : testamentArn((Avl*)collection->racine);
 #endif

@@ -25,12 +25,38 @@ void initialiserAvl(Avl *a) {
 
 }
 
+static void testamentRecursif(Noeud * noeud){
+    if(noeud != NULL){
+        testamentRecursif(noeud->filsDroit);
+        testamentRecursif(noeud->filsGauche);
+        free(noeud);
+    }
+}
+
 void testamentAvl(Avl *a) {
-    // TODO
+    testamentRecursif(a->racine);
+}
+
+/**
+ * Methodé récursive faisant l'insertion dans l'arbre
+ */
+static void insertion(Noeud ** pNoeud, Element element){
+    if(*pNoeud == NULL){
+        *pNoeud = creerNoeud(element);
+    } else {
+        if(compare_element(element,(*pNoeud)->info) > 0){ // element > info => on va à droite
+
+            insertion(&((*pNoeud)->filsDroit),element);
+
+        } else if (compare_element(element,(*pNoeud)->info) <0){ //element < info => on va à gauche
+            insertion(&((*pNoeud)->filsGauche),element);
+        }
+    }
 }
 
 void insererElementDansAvl(Avl *a, Element element) {
-    // TODO :
+    insertion(&(a->racine),element);
+    // TODO rotation après chaque insertion si nécessaire
 }
 
 /**

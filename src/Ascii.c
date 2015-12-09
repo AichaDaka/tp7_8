@@ -6,6 +6,7 @@
 #include "string.h"
 #include "Avl.h"
 #include "Collection.h"
+#include "Utils.h"
 
 #define MAX_HEIGHT 1000
 #define INFINITY (1<<20)
@@ -39,16 +40,6 @@ typedef struct asciinode
     char label[11];
 } asciinode;
 
-
-static int MIN (int X, int Y)
-{
-    return ((X) < (Y)) ? (X) : (Y);
-}
-
-static int MAX (int X, int Y)
-{
-    return ((X) > (Y)) ? (X) : (Y);
-}
 
 //The following function fills in the lprofile array for the given tree.
 //It assumes that the center of the label of the root of this tree
@@ -269,7 +260,7 @@ void afficherArbreEnAscii(Collection * t)
     asciinode *proot;
     int xmin, i;
     if (t == NULL) return;
-    proot = build_ascii_tree(t->racine);
+    proot = build_ascii_tree(t);
     compute_edge_lengths(proot);
     for (i=0; i<proot->height && i < MAX_HEIGHT; i++)
     {

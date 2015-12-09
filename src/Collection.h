@@ -16,7 +16,7 @@ void initialiserCollection(Collection *a);
 /**
  * Testament de la collection initialisée
  */
-void testament(Collection *collection);
+void testamentCollection(Collection *collection);
 
 /**
  * Insère un élément dans la collection
