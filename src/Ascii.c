@@ -15,7 +15,7 @@ int lprofile[MAX_HEIGHT];
 int rprofile[MAX_HEIGHT];
 
 //adjust gap between left and right nodes
-int gap = 3;
+const int gap = 4;
 
 //used for printing next node in the same level,
 //this is the x coordinate of the next char printed

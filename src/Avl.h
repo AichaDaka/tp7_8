@@ -12,7 +12,6 @@ typedef struct Noeud {
     struct Noeud *filsGauche;
     struct Noeud *filsDroit;
     Element info;
-    int diff;
 } Noeud;
 
 /**
@@ -46,9 +45,6 @@ int calculerHauteurAvl(const Avl *avl);
  */
 void insererElementDansAvl(Avl *a, Element element);
 
-void rotationGauche(Noeud *n);
-
-void rotationDroite(Noeud *n);
 
 
 #endif
