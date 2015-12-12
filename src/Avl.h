@@ -45,6 +45,6 @@ int calculerHauteurAvl(const Avl *avl);
  */
 void insererElementDansAvl(Avl *a, Element element);
 
-
+void creerFichierDigraph(const Avl *avl, const char *fileName);
 
 #endif

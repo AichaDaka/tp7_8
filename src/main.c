@@ -20,7 +20,9 @@ int main(int argc, char const *ar[]) {
         insererElementDansCollection(&a, valeur);
     }
 
-    afficherArbreEnAscii(&a);
+   // afficherArbreEnAscii(&a);
+
+    creerFichierDigraph((Avl*)a.racine,"coucou.txt");
 
 
     testamentCollection(&a);

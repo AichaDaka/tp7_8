@@ -73,14 +73,14 @@ static void rotationRecursif(Noeud **noeud) {
 
         if (hauteurGauche - hauteurDroit > 1) { // déséquilibré vers la gauche => rotation vers la droite
             if (hauteurGauche - hauteurDroit == 2) {
-                if ((*noeud)->filsGauche->filsDroit != NULL){
+                if ((*noeud)->filsGauche->filsDroit != NULL) {
                     (*noeud)->filsGauche = rotationGauche((*noeud)->filsGauche);
                 }
             }
             *noeud = rotationDroite(*noeud);
         } else if (hauteurDroit - hauteurGauche > 1) { // déséquilibré vers la droite => rotation vers la gauche
             if (hauteurDroit - hauteurGauche == 2) {
-                if ((*noeud)->filsDroit->filsGauche != NULL){
+                if ((*noeud)->filsDroit->filsGauche != NULL) {
                     (*noeud)->filsDroit = rotationDroite((*noeud)->filsDroit);
                 }
             }
@@ -155,3 +155,50 @@ void testDoubleRotationDroite() {
     root = rotationDroite(root);
 }
 
+
+/**
+ * Separateur
+ */
+const char SEPARATEUR[3] = "->";
+
+/**
+ * Identification des noeuds null
+ */
+
+static int idnumer=0;
+
+static void afficherNoeud(const Noeud *noeud,FILE *file) {
+    fprintf(file,"%d", noeud->info);
+    fprintf(file,SEPARATEUR);
+    fprintf(file,"{");
+    if (noeud->filsGauche != NULL)
+        fprintf(file,"%d", noeud->filsGauche->info);
+    else
+        fprintf(file,"id%d [shape=point]",idnumer++);
+
+    fprintf(file," ");
+
+    if (noeud->filsDroit != NULL)
+        fprintf(file,"%d", noeud->filsDroit->info);
+    else
+        fprintf(file,"id%d [shape=point]",idnumer++);
+    fprintf(file,"};\n");
+}
+
+void afficherDigraphRecursif(const Noeud *noeud, FILE* file) {
+    if (noeud != NULL) {
+        afficherNoeud(noeud,file);
+        afficherDigraphRecursif(noeud->filsGauche,file);
+        afficherDigraphRecursif(noeud->filsDroit,file);
+    }
+}
+
+void creerFichierDigraph(const Avl *avl, const char *fileName) {
+    FILE *fichierDigraph;
+    fichierDigraph = fopen(fileName, "w");
+
+    fprintf(fichierDigraph,"strict digraph AVL {\n");
+    afficherDigraphRecursif(avl->racine, fichierDigraph);
+    fprintf(fichierDigraph,"}\n");
+    fclose(fichierDigraph);
+}
