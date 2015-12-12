@@ -100,9 +100,6 @@ static void rotationAvl(Avl *avl) {
 void insererElementDansAvl(Avl *a, Element element) {
     insertion(&(a->racine), element);
     rotationAvl(a);
-    int hauteurdroit = calculHauteur(a->racine->filsDroit);
-    int hauteurgauche = calculHauteur(a->racine->filsGauche);
-
 }
 
 /**
