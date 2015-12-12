@@ -153,16 +153,10 @@ void testDoubleRotationDroite() {
 }
 
 
-/**
- * Separateur
- */
-const char SEPARATEUR[3] = "->";
 
-/**
- * Identification des noeuds null
- */
+const char SEPARATEUR[3] = "->"; /**<  Separateur des noeuds pour graphviz */
 
-static int idnumer=0;
+static int idnumer=0; /**<   Identification des noeuds null */
 
 static void afficherNoeud(const Noeud *noeud,FILE *file) {
     fprintf(file,"%d", noeud->info);
@@ -201,4 +195,8 @@ void creerFichierDigraph(const Avl *avl, const char *fileName) {
     afficherDigraphRecursif(avl->racine, fichierDigraph);
     fprintf(fichierDigraph,"}\n");
     fclose(fichierDigraph);
+}
+
+int rechercher(const Avl *avl, Element element) {
+    return 0;
 }

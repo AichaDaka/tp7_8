@@ -9,9 +9,9 @@
  */
 typedef struct Noeud {
 
-    struct Noeud *filsGauche;
-    struct Noeud *filsDroit;
-    Element info;
+    struct Noeud *filsGauche; /**< fils gauche du noeud */
+    struct Noeud *filsDroit; /**< fils droit du noeud */
+    Element info; /** information contenue dans le noeud */
 } Noeud;
 
 /**
@@ -19,32 +19,50 @@ typedef struct Noeud {
  * @brief Représente un arbre AVL
  */
 typedef struct {
-    /**
-     * Racine de l'arbre
-     */
-    Noeud *racine;
+    Noeud *racine; /**<  Racine de l'arbre     */
 } Avl;
 
 /**
- * Initialise un AVL
+ * @brief Initialise un AVL
+ * @param avl arbre à initialiser
  */
-void initialiserAvl(Avl *a);
+void initialiserAvl(Avl *avl);
 
 /**
- * Test de l'AVL
+ * @brief Testament de l'AVL
+ * @param avl avl à liberer
  */
-void testamentAvl(Avl *a);
+void testamentAvl(Avl *avl);
 
 /**
- * Retourne la hauteur de l'arbre
+ * @brief Recherche un élément dans l'arbre
+ * @param avl arbre dans lequel effectué la recherche
+ * @param element à chercher
+ * @return 1 si l'élement se trouve dans l'arbre.
+ *         0 si ce n'est pas le cas
+ */
+int rechercher(const Avl *avl, Element element);
+
+/**
+ * @brief Retourne la hauteur de l'arbre
+ * @param avl arbre dont on veut calculer la hauteur
+ * @return la hauteur de l'arbre
  */
 int calculerHauteurAvl(const Avl *avl);
 
 /**
- * Insère un élément dans l'AVL
+ * @brief Insère un élément dans l'AVL
+ * @param a avl dans lequel on veut inserer
+ * @param element element à inserer
  */
 void insererElementDansAvl(Avl *a, Element element);
 
+/**
+ * @brief Crée un fichier avec le langage dot lisible par graphviz qui permet de construire une image de l'arbre
+ * @fn void creerFichierDigraph(const Avl *avl, const char *fileName)
+ * @param avl l'avl à construire
+ * @param filename nom du fichier de sortie
+ */
 void creerFichierDigraph(const Avl *avl, const char *fileName);
 
 #endif
