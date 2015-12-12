@@ -171,17 +171,20 @@ static void afficherNoeud(const Noeud *noeud,FILE *file) {
     fprintf(file,"%d", noeud->info);
     fprintf(file,SEPARATEUR);
     fprintf(file,"{");
-    if (noeud->filsGauche != NULL)
-        fprintf(file,"%d", noeud->filsGauche->info);
-    else
-        fprintf(file,"id%d [shape=point]",idnumer++);
+    if(noeud->filsGauche !=NULL || noeud->filsDroit != NULL){
 
-    fprintf(file," ");
+        if (noeud->filsGauche != NULL)
+            fprintf(file,"%d", noeud->filsGauche->info);
+        else
+            fprintf(file,"id%d [shape=point]",idnumer++);
+        fprintf(file," ");
+        if (noeud->filsDroit != NULL)
+            fprintf(file,"%d", noeud->filsDroit->info);
+        else
+            fprintf(file,"id%d [shape=point]",idnumer++);
+    }
 
-    if (noeud->filsDroit != NULL)
-        fprintf(file,"%d", noeud->filsDroit->info);
-    else
-        fprintf(file,"id%d [shape=point]",idnumer++);
+
     fprintf(file,"};\n");
 }
 
