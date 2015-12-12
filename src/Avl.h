@@ -11,12 +11,13 @@ typedef struct Noeud {
 
     struct Noeud *filsGauche; /**< fils gauche du noeud */
     struct Noeud *filsDroit; /**< fils droit du noeud */
-    Element info; /** information contenue dans le noeud */
+    Element info; /**< information contenue dans le noeud */
 } Noeud;
 
 /**
  * @struct Avl
- * @brief Représente un arbre AVL
+ * @brief Représente un arbre AVL. On aurait pu ne pas créer une structure mais celà peut être utile par la suite si on
+ * veut ajouter d'autres métadonnées
  */
 typedef struct {
     Noeud *racine; /**<  Racine de l'arbre     */
@@ -41,7 +42,7 @@ void testamentAvl(Avl *avl);
  * @return 1 si l'élement se trouve dans l'arbre.
  *         0 si ce n'est pas le cas
  */
-int rechercher(const Avl *avl, Element element);
+int rechercherElementDansAvl(const Avl *avl, Element element);
 
 /**
  * @brief Retourne la hauteur de l'arbre

@@ -85,71 +85,17 @@ void rbtree_print(const arbre & tree) {
   print_internal(tree.racine, 0, 0);
 }
 
-
-
-
-
-
-/*		initialisationCollection(a,e);
-	}
-	else
-	{
-		On cree le noeud
-		nn = new noeud;
-		nn->info = e;
-		nn->c = R;
-		nn->fg = NULL;
-		nn->fd = NULL;
-		nn->pere = NULL;
-
-		p = r;
-	while(p != NULL && (p->fg != NULL || p->fd != NULL)){
-        if(compare_element(e,p->info)<0){
-            pp=p;
-            p = p->fg;
-        }
-        else{
-            pp = p;
-            p = p->fd;
-        }
-}
-
-
-    on effectue les rotations 5 cas possible
-		if(p == NULL && pp->fd == NULL)/**on sait que pp->info < e**
-		{
-			printf("TEST %d\n",pp->pere->info);
-			nn->pere = pp;
-			pp->fd = nn;
-			if(pp->c == R)
-			{
-				rotationGauche(pp);
-				pp->c = N;
-			}
-		}
-		else if(p == NULL && pp->fg == NULL)
-		{
-			nn->pere = pp;
-			pp->fg = nn;
-			if(pp->c == R)
-			{
-				rotationDroite(pp);
-				pp->c = N;
-			}
-		}
-		else if(p->c == N && p->fg == NULL && p->fd == NULL)
-		{
-			if(compare_e(e,p->info)<0)
-			{
-				nn->pere = p;
-				p->fg = nn;
-			}
-			else
-
-
-
 */
 
 
 
 
+int rechercherElement(const Collection const *collection, Element element) {
+#ifdef AVL
+    return rechercherElementDansAvl((Avl*)collection->racine,element);
+#else
+    // TODO :
+    return 0;
+
+#endif
+}

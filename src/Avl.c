@@ -5,6 +5,7 @@
 #include "Utils.h"
 
 
+/* fonctions et procédures internes */
 static int calculHauteur(Noeud *noeud);
 
 static void insertion(Noeud **pNoeud, Element element);
@@ -13,8 +14,116 @@ static Noeud *rotationDroite(Noeud *racine);
 
 static Noeud *rotationGauche(Noeud *racine);
 
+static Noeud *creerNoeud(Element element);
+
 static void rotationAvl(Avl *avl);
 
+static void testamentRecursif(Noeud *noeud);
+
+static void rotationRecursif(Noeud **noeud);
+
+static void afficherDigraphRecursif(const Noeud *noeud, FILE *file);
+
+static void afficherNoeud(const Noeud *noeud, FILE *file);
+
+/* **************************************************** */
+
+
+
+
+void initialiserAvl(Avl *a) {
+    a->racine = NULL;
+}
+
+void testamentAvl(Avl *a) {
+    testamentRecursif(a->racine);
+}
+
+void insererElementDansAvl(Avl *a, Element element) {
+    insertion(&(a->racine), element);
+    rotationAvl(a);
+}
+
+
+int calculerHauteurAvl(const Avl *avl) {
+    return calculHauteur(avl->racine);
+}
+
+void testDoubleRotationGauche() {
+    Noeud *root = creerNoeud(2);
+    root->filsDroit = creerNoeud(11);
+    root->filsDroit->filsGauche = creerNoeud(5);
+
+    root->filsDroit = rotationDroite(root->filsDroit);
+    root = rotationGauche(root);
+}
+
+void testDoubleRotationDroite() {
+    Noeud *root = creerNoeud(10);
+    root->filsGauche = creerNoeud(5);
+    root->filsGauche->filsDroit = creerNoeud(7);
+
+    root->filsGauche = rotationGauche(root->filsGauche);
+    root = rotationDroite(root);
+}
+
+
+void creerFichierDigraph(const Avl *avl, const char *fileName) {
+    FILE *fichierDigraph;
+    fichierDigraph = fopen(fileName, "w");
+
+    fprintf(fichierDigraph, "strict digraph AVL {\n");
+    afficherDigraphRecursif(avl->racine, fichierDigraph);
+    fprintf(fichierDigraph, "}\n");
+    fclose(fichierDigraph);
+}
+
+int rechercherElementRecursif(Noeud *noeud, Element element) {
+    if (noeud == NULL) {
+        return 0;
+    } else {
+        if (compare_element(element, noeud->info) > 0) {
+            return rechercherElementRecursif(noeud->filsDroit, element);
+        } else if (compare_element(element, noeud->info) < 0) {
+            return rechercherElementRecursif(noeud->filsGauche, element);
+        } else
+            return 1;
+    }
+
+}
+
+int rechercherElementDansAvl(const Avl *avl, Element element) {
+    return rechercherElementRecursif(avl->racine, element);
+}
+
+
+const char SEPARATEUR[3] = "->";
+/**<  Separateur des noeuds pour graphviz */
+
+static int idnumer = 0;
+
+/**<   Identification des noeuds null */
+
+static void afficherNoeud(const Noeud *noeud, FILE *file) {
+    fprintf(file, "%d", noeud->info);
+    fprintf(file, SEPARATEUR);
+    fprintf(file, "{");
+    if (noeud->filsGauche != NULL || noeud->filsDroit != NULL) {
+
+        if (noeud->filsGauche != NULL)
+            fprintf(file, "%d", noeud->filsGauche->info);
+        else
+            fprintf(file, "id%d [shape=point]", idnumer++);
+        fprintf(file, " ");
+        if (noeud->filsDroit != NULL)
+            fprintf(file, "%d", noeud->filsDroit->info);
+        else
+            fprintf(file, "id%d [shape=point]", idnumer++);
+    }
+
+
+    fprintf(file, "};\n");
+}
 
 /**
  * @brief Crée un noeud avec element comme info
@@ -30,9 +139,14 @@ static Noeud *creerNoeud(Element element) {
 }
 
 
-void initialiserAvl(Avl *a) {
-    a->racine = NULL;
+static void afficherDigraphRecursif(const Noeud *noeud, FILE *file) {
+    if (noeud != NULL) {
+        afficherNoeud(noeud, file);
+        afficherDigraphRecursif(noeud->filsGauche, file);
+        afficherDigraphRecursif(noeud->filsDroit, file);
+    }
 }
+
 
 static void testamentRecursif(Noeud *noeud) {
     if (noeud != NULL) {
@@ -40,10 +154,6 @@ static void testamentRecursif(Noeud *noeud) {
         testamentRecursif(noeud->filsGauche);
         free(noeud);
     }
-}
-
-void testamentAvl(Avl *a) {
-    testamentRecursif(a->racine);
 }
 
 /**
@@ -97,10 +207,6 @@ static void rotationAvl(Avl *avl) {
     rotationRecursif(&avl->racine);
 }
 
-void insererElementDansAvl(Avl *a, Element element) {
-    insertion(&(a->racine), element);
-    rotationAvl(a);
-}
 
 /**
  * Fonction de rotation droite
@@ -128,75 +234,4 @@ static int calculHauteur(Noeud *noeud) {
     if (noeud == NULL)
         return 0;
     else return 1 + MAX(calculHauteur(noeud->filsDroit), calculHauteur(noeud->filsGauche));
-}
-
-int calculerHauteurAvl(const Avl *avl) {
-    return calculHauteur(avl->racine);
-}
-
-void testDoubleRotationGauche() {
-    Noeud *root = creerNoeud(2);
-    root->filsDroit = creerNoeud(11);
-    root->filsDroit->filsGauche = creerNoeud(5);
-
-    root->filsDroit = rotationDroite(root->filsDroit);
-    root = rotationGauche(root);
-}
-
-void testDoubleRotationDroite() {
-    Noeud *root = creerNoeud(10);
-    root->filsGauche = creerNoeud(5);
-    root->filsGauche->filsDroit = creerNoeud(7);
-
-    root->filsGauche = rotationGauche(root->filsGauche);
-    root = rotationDroite(root);
-}
-
-
-
-const char SEPARATEUR[3] = "->"; /**<  Separateur des noeuds pour graphviz */
-
-static int idnumer=0; /**<   Identification des noeuds null */
-
-static void afficherNoeud(const Noeud *noeud,FILE *file) {
-    fprintf(file,"%d", noeud->info);
-    fprintf(file,SEPARATEUR);
-    fprintf(file,"{");
-    if(noeud->filsGauche !=NULL || noeud->filsDroit != NULL){
-
-        if (noeud->filsGauche != NULL)
-            fprintf(file,"%d", noeud->filsGauche->info);
-        else
-            fprintf(file,"id%d [shape=point]",idnumer++);
-        fprintf(file," ");
-        if (noeud->filsDroit != NULL)
-            fprintf(file,"%d", noeud->filsDroit->info);
-        else
-            fprintf(file,"id%d [shape=point]",idnumer++);
-    }
-
-
-    fprintf(file,"};\n");
-}
-
-void afficherDigraphRecursif(const Noeud *noeud, FILE* file) {
-    if (noeud != NULL) {
-        afficherNoeud(noeud,file);
-        afficherDigraphRecursif(noeud->filsGauche,file);
-        afficherDigraphRecursif(noeud->filsDroit,file);
-    }
-}
-
-void creerFichierDigraph(const Avl *avl, const char *fileName) {
-    FILE *fichierDigraph;
-    fichierDigraph = fopen(fileName, "w");
-
-    fprintf(fichierDigraph,"strict digraph AVL {\n");
-    afficherDigraphRecursif(avl->racine, fichierDigraph);
-    fprintf(fichierDigraph,"}\n");
-    fclose(fichierDigraph);
-}
-
-int rechercher(const Avl *avl, Element element) {
-    return 0;
 }
