@@ -99,3 +99,12 @@ int rechercherElement(const Collection const *collection, Element element) {
 
 #endif
 }
+
+void creerFichierDigraphCollection(const Collection const *collection, const char *fileName) {
+#ifdef AVL
+    creerFichierDigraphAvl((Avl*) collection->racine,fileName);
+#else
+    // TODO
+#endif
+
+}

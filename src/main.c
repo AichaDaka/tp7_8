@@ -14,19 +14,19 @@ int main(int argc, char const *ar[]) {
     int i;
 
     srand((unsigned) time(NULL));
-    for (i = 0; i < 50; ++i) {
+    for (i = 0; i < 11; ++i) {
         int valeur = rand() % (valMax + 1);
-        //insererElementDansCollection(&a,element1[i]);
-        insererElementDansCollection(&a, valeur);
+        insererElementDansCollection(&a, element[i]);
+        //insererElementDansCollection(&a, valeur);
     }
 
     afficherArbreEnAscii(&a);
 
-   /* const char fichier[]="arbre.gv";
+   /* const char fichier[] = "arbre.gv";
     char commande[256];
-    creerFichierDigraph((Avl*)a.racine,fichier);
-    sprintf(commande,"dot -Tsvg %s > %s.svg && eog %s.svg 2>/dev/null",fichier,fichier,fichier);
-    system(commande); */
+    creerFichierDigraphCollection(&a, fichier);
+    sprintf(commande, "dot -Tsvg %s > %s.svg && eog %s.svg 2>/dev/null", fichier, fichier, fichier);
+    system(commande);*/
 
     testamentCollection(&a);
     return 0;

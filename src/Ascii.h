@@ -1,7 +1,6 @@
 #ifndef ASCII_H
 #define ASCII_H
 
-#include "Avl.h"
 #include "Collection.h"
 
 /**

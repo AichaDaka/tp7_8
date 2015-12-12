@@ -60,10 +60,10 @@ void insererElementDansAvl(Avl *a, Element element);
 
 /**
  * @brief Crée un fichier avec le langage dot lisible par graphviz qui permet de construire une image de l'arbre
- * @fn void creerFichierDigraph(const Avl *avl, const char *fileName)
+ * @fn void creerFichierDigraphAvl(const Avl *avl, const char *fileName)
  * @param avl l'avl à construire
  * @param filename nom du fichier de sortie
  */
-void creerFichierDigraph(const Avl *avl, const char *fileName);
+void creerFichierDigraphAvl(const Avl *avl, const char *fileName);
 
 #endif

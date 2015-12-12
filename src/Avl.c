@@ -68,7 +68,7 @@ void testDoubleRotationDroite() {
 }
 
 
-void creerFichierDigraph(const Avl *avl, const char *fileName) {
+void creerFichierDigraphAvl(const Avl *avl, const char *fileName) {
     FILE *fichierDigraph;
     fichierDigraph = fopen(fileName, "w");
 
