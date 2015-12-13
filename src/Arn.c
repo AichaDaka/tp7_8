@@ -231,18 +231,25 @@ static int idnumer = 0;
 static void afficherNoeud(const NoeudRN *noeud, FILE *file) {
     fprintf(file, "%d", noeud->info);
     fprintf(file, "->");
-    fprintf(file, "{");
+    fprintf(file, "{ ");
     if (noeud->filsGauche != NULL || noeud->filsDroit != NULL) {
 
         if (noeud->filsGauche != NULL){
-
-            fprintf(file, "%d", noeud->filsGauche->info);
+            if(noeud->noir == 1){
+                fprintf(file, "%d [fillcolor=black]", noeud->filsGauche->info);
+            } else {
+                fprintf(file, "%d [fillcolor=red]", noeud->filsGauche->info);
+            }
         }
         else
             fprintf(file, "id%d [shape=point]", idnumer++);
         fprintf(file, " ");
         if (noeud->filsDroit != NULL){
-            fprintf(file, "%d", noeud->filsDroit->info);
+            if(noeud->noir == 1){
+                fprintf(file, "%d [fillcolor=black]", noeud->filsDroit->info);
+            } else {
+                fprintf(file, "%d [fillcolor=red]", noeud->filsDroit->info);
+            }
         }
         else
             fprintf(file, "id%d [shape=point]", idnumer++);
@@ -265,7 +272,8 @@ void creerFichierDigraphArn(const Arn *arn, const char *fileName) {
     FILE *fichierDigraph;
     fichierDigraph = fopen(fileName, "w");
 
-    fprintf(fichierDigraph, "strict digraph AVL {\n");
+    fprintf(fichierDigraph, "strict digraph AVL {\n node [style=filled fontcolor=white] \n");
+    fprintf(fichierDigraph,"%d [fillcolor=black]",arn->racine->info);
     afficherDigraphRecursif(arn->racine, fichierDigraph);
     fprintf(fichierDigraph, "}\n");
     fclose(fichierDigraph);
