@@ -20,6 +20,6 @@ set(SOURCE_FILES
         src/Collection.h
         src/Element.c
         src/Element.h
-        src/main.c src/Utils.h src/Utils.c src/Ascii.c src/Ascii.h)
+        src/main.c src/Utils.h src/Utils.c src/Ascii.c src/Ascii.h src/Arn.c src/Arn.h)
 
 add_executable(executable ${SOURCE_FILES})
