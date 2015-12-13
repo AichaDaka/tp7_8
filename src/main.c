@@ -6,6 +6,41 @@
 
 #define valMax 1000
 
+
+long double testPerformanceInsertion(int nbElement, int nbAinserer)
+{
+    char  fileName[] = "performance.txt";
+    Collection a;
+    initialiserCollection(&a);
+    /* performance insertion */
+
+    //* insertion des éléments
+    int i;
+    clock_t start,end;
+
+    for(i = 0; i<nbElement;i++)
+    {
+        start = clock();
+        insererElementDansCollection(&a,i);
+
+        end = clock();
+        double time = (end - start)/(double )CLOCKS_PER_SEC;
+        printf("%d %f \n",i,time );
+    }
+
+
+
+}
+
+
+void testPerformance(){
+    testPerformanceInsertion(90000,10);
+}
+
+
+
+
+
 int main(int argc, char const *ar[]) {
     Collection a;
     initialiserCollection(&a);
@@ -22,15 +57,18 @@ int main(int argc, char const *ar[]) {
 
     //afficherArbreEnAscii(&a);
 
-    const char fichier[] = "arbre.gv";
+    /*const char fichier[] = "arbre.gv";
     char commande[256];
     creerFichierDigraphCollection(&a, fichier);
     sprintf(commande, "dot -Tsvg %s > %s.svg && eog %s.svg 2>/dev/null", fichier, fichier, fichier);
-    system(commande);
+    //system(commande);
 
-    testamentCollection(&a);
+    testamentCollection(&a); */
 
 
+    testPerformance();
 
     return 0;
 }
+
+
