@@ -3,7 +3,7 @@
 
 
 void afficher_element(Element e) {
-    printf("e : %d ", e);
+    printf("%d ", e);
 }
 
 int compare_element(Element e1, Element e2) {

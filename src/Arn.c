@@ -13,11 +13,11 @@ void SousArbre_init(Arn *a, NoeudRN *n, const Element e) {
 }
 
 
-void ArbreRN_init(Arn *arbreRN) {
+void initialiserArn(Arn *arbreRN) {
     arbreRN->racine = NULL;
 }
 
-void ArbreRN_testament(Arn *arbreRN) {
+void testamentArn(Arn *arbreRN) {
     testamentRecursif(arbreRN->racine);
 }
 
@@ -28,7 +28,7 @@ NoeudRN *SousArbre_cree(Arn *a, const Element e) {
 }
 
 
-void ArbreRN_ajouteElt(Arn *a, const Element e) {
+void insererElementDansArn(Arn *a, const Element e) {
     if (a->racine == NULL) {
         a->racine = SousArbre_cree(a, e);
         a->racine->noir = 1;
@@ -220,4 +220,53 @@ void ArbreRN_affiche(const Arn *a) {
 
 int rechercherElementDansArn(const Arn *arbreRN, Element element) {
     return SousArbre_recherche(arbreRN,arbreRN->racine,element);
+}
+
+
+
+
+static int idnumer = 0;
+
+
+static void afficherNoeud(const NoeudRN *noeud, FILE *file) {
+    fprintf(file, "%d", noeud->info);
+    fprintf(file, "->");
+    fprintf(file, "{");
+    if (noeud->filsGauche != NULL || noeud->filsDroit != NULL) {
+
+        if (noeud->filsGauche != NULL){
+
+            fprintf(file, "%d", noeud->filsGauche->info);
+        }
+        else
+            fprintf(file, "id%d [shape=point]", idnumer++);
+        fprintf(file, " ");
+        if (noeud->filsDroit != NULL){
+            fprintf(file, "%d", noeud->filsDroit->info);
+        }
+        else
+            fprintf(file, "id%d [shape=point]", idnumer++);
+    }
+
+
+    fprintf(file, "};\n");
+}
+
+
+static void afficherDigraphRecursif(const NoeudRN *noeud, FILE *file) {
+    if (noeud != NULL) {
+        afficherNoeud(noeud, file);
+        afficherDigraphRecursif(noeud->filsGauche, file);
+        afficherDigraphRecursif(noeud->filsDroit, file);
+    }
+}
+
+void creerFichierDigraphArn(const Arn *arn, const char *fileName) {
+    FILE *fichierDigraph;
+    fichierDigraph = fopen(fileName, "w");
+
+    fprintf(fichierDigraph, "strict digraph AVL {\n");
+    afficherDigraphRecursif(arn->racine, fichierDigraph);
+    fprintf(fichierDigraph, "}\n");
+    fclose(fichierDigraph);
 }
