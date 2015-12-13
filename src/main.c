@@ -52,19 +52,19 @@ int main(int argc, char const *ar[]) {
     for (i = 0; i < 40; ++i) {
         int valeur = rand() % (valMax + 1);
         insererElementDansCollection(&a, valeur);
-        const char fichier[] = "arbre.gv";
-        char commande[256];
-        creerFichierDigraphCollection(&a, fichier);
-        sprintf(commande, "dot -Tsvg %s > %s.svg && eog %s.svg 2>/dev/null", fichier, fichier, fichier);
-        system(commande);
+
 
     }
 
-    //afficherArbreEnAscii(&a);
+    const char fichier[] = "arbre.gv";
+    char commande[256];
+    creerFichierDigraphCollection(&a, fichier);
+    sprintf(commande, "dot -Tsvg %s > %s.svg && eog %s.svg 2>/dev/null", fichier, fichier, fichier);
+    system(commande);
+
 
 
     testamentCollection(&a);
-
 
     //testPerformance();
 

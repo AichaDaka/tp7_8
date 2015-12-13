@@ -39,17 +39,23 @@ void insererElementDansArn(Arn *a, const Element e) {
     }
 }
 
-void SousArbre_rotationGauche(Arn *a, NoeudRN **pn)
+NoeudRN* SousArbre_rotationGauche(NoeudRN *racine)
 {
-    NoeudRN *pn_tmp = *pn;
-    *pn = (*pn)->filsDroit;
-    pn_tmp->filsDroit = (*pn)->filsGauche;
-    (*pn)->filsGauche = pn_tmp;
-    (*pn)->noir = 1;
-    (*pn)->filsGauche->noir = (*pn)->filsDroit->noir = 0;
+    NoeudRN *nouvelleRacine;
+    nouvelleRacine = racine->filsDroit;
+    racine->filsDroit = racine->filsGauche;
+    nouvelleRacine->filsGauche = racine;
+
+
+    racine->noir = 1;
+    if(racine->filsGauche != NULL){
+        racine->filsGauche->noir = racine->filsDroit->noir = 0;
+    }
+
+    return nouvelleRacine;
 }
 
-void SousArbre_rotationDoubleGauche(Arn *a, NoeudRN* *pn)
+void SousArbre_rotationDoubleGauche(NoeudRN **pn)
 {
     NoeudRN *pn_tmp = *pn;
     (*pn) = (*pn)->filsDroit->filsGauche;
@@ -63,7 +69,7 @@ void SousArbre_rotationDoubleGauche(Arn *a, NoeudRN* *pn)
 }
 
 
-void SousArbre_rotationDoubleDroite(Arn *a, NoeudRN* *pn)
+void SousArbre_rotationDoubleDroite(NoeudRN **pn)
 {
     NoeudRN *pn_tmp = *pn;
     *pn = (*pn)->filsGauche->filsDroit;
@@ -76,15 +82,19 @@ void SousArbre_rotationDoubleDroite(Arn *a, NoeudRN* *pn)
     (*pn)->filsGauche->noir = (*pn)->filsDroit->noir = 0;
 }
 
-void SousArbre_rotationDroite(Arn *a, NoeudRN* *pn)
+NoeudRN* SousArbre_rotationDroite(NoeudRN *racine)
 {
-    NoeudRN *pn_tmp = *pn;
-    *pn = (*pn)->filsGauche;
-    pn_tmp->filsGauche = (*pn)->filsDroit;
-    (*pn)->filsDroit = pn_tmp;
+    NoeudRN *nouvelleRacine;
+    nouvelleRacine = racine->filsGauche;
+    racine->filsGauche = nouvelleRacine->filsDroit;
+    nouvelleRacine->filsDroit = racine;
 
-    (*pn)->noir = 1;
-    (*pn)->filsGauche->noir = (*pn)->filsDroit->noir = 0;
+    racine->noir = 1;
+    if(racine->filsGauche != NULL){
+        racine->filsGauche->noir = racine->filsDroit->noir = 0;
+    }
+
+    return nouvelleRacine;
 }
 
 int SousArbre_ajouteElt(Arn *a, NoeudRN **pn, const Element e) {
@@ -113,12 +123,12 @@ int SousArbre_ajouteElt(Arn *a, NoeudRN **pn, const Element e) {
             {
                 printf("test\n");
 
-                SousArbre_rotationGauche(a, pn);
+                *pn=SousArbre_rotationGauche(*pn);
                 return 0;
             }
             else if(desEq == 1)	//Si le désequilibre vient d'une insertion à gauche de la droite
             {
-                SousArbre_rotationDoubleGauche(a, pn);
+                SousArbre_rotationDoubleGauche(pn);
                 return 0;
             }
             else if(desEq == 3)	//Si pas de déséquilibre dans le sous Arbre droit mais déséquilibre potentiel dans le sous Arbre considéré (pn pointe sur la racine de cet arbre)
@@ -153,12 +163,12 @@ int SousArbre_ajouteElt(Arn *a, NoeudRN **pn, const Element e) {
             }
             else if(desEq == 2)	//Si le deséquilibre vient d'une insertion à droite de la gauche
             {
-                SousArbre_rotationDoubleDroite(a, pn);
+                SousArbre_rotationDoubleDroite(pn);
                 return 0;
             }
             else if(desEq == 1)	//Si le désequilibre vient d'une insertion à gauche de la gauche
             {
-                SousArbre_rotationDroite(a, pn);
+                *pn=SousArbre_rotationDroite(*pn);
                 return 0;
             }
             else if(desEq == 3)
