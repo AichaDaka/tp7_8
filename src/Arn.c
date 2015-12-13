@@ -4,8 +4,9 @@
 
 
 static void testamentRecursif(NoeudRN *noeud);
+static int insertionArn(Arn *a, NoeudRN **pn, const Element e);
 
-void SousArbre_init(Arn *a, NoeudRN *n, const Element e) {
+void SousArbre_init(NoeudRN *n, const Element e) {
     n->info = e;
     n->filsGauche = NULL;
     n->filsDroit = NULL;
@@ -23,7 +24,7 @@ void testamentArn(Arn *arbreRN) {
 
 NoeudRN *SousArbre_cree(Arn *a, const Element e) {
     NoeudRN *pn = malloc(sizeof(NoeudRN));
-    SousArbre_init(a, pn, e);
+    SousArbre_init(pn, e);
     return pn;
 }
 
@@ -34,7 +35,7 @@ void insererElementDansArn(Arn *a, const Element e) {
         a->racine->noir = 1;
     }
     else {
-        SousArbre_ajouteElt(a, &(a->racine), e);
+        insertionArn(a, &(a->racine), e);
         a->racine->noir = 1;
     }
 }
@@ -97,7 +98,11 @@ NoeudRN* SousArbre_rotationDroite(NoeudRN *racine)
     return nouvelleRacine;
 }
 
-int SousArbre_ajouteElt(Arn *a, NoeudRN **pn, const Element e) {
+static void insertionArn2(Arn *a, NoeudRN **pn, const Element e){
+
+}
+
+static int insertionArn(Arn *a, NoeudRN **pn, const Element e) {
 
     if(compare_element(e,(*pn)->info) >0)
     {
@@ -109,7 +114,7 @@ int SousArbre_ajouteElt(Arn *a, NoeudRN **pn, const Element e) {
         }
         else
         {
-            int desEq = SousArbre_ajouteElt(a, &(*pn)->filsDroit, e);
+            int desEq = insertionArn(a, &(*pn)->filsDroit, e);
             if(desEq ==0) return 0;
 
             //Si il y a un désequilibre potentiel après insertion dans le sous Arbre droit :
@@ -121,8 +126,6 @@ int SousArbre_ajouteElt(Arn *a, NoeudRN **pn, const Element e) {
             }
             else if(desEq == 2)	//Si le deséquilibre vient d'une insertion à droite de la droite
             {
-                printf("test\n");
-
                 *pn=SousArbre_rotationGauche(*pn);
                 return 0;
             }
@@ -151,7 +154,7 @@ int SousArbre_ajouteElt(Arn *a, NoeudRN **pn, const Element e) {
         }
         else
         {
-            int desEq = SousArbre_ajouteElt(a, &(*pn)->filsGauche, e);
+            int desEq = insertionArn(a, &(*pn)->filsGauche, e);
             if(desEq == 0) return 0;
 
             //Si il y a un désequilibre potentiel après insertion dans le sous Arbre gauche :
@@ -185,31 +188,15 @@ int SousArbre_ajouteElt(Arn *a, NoeudRN **pn, const Element e) {
     return 0;
 }
 
-int SousArbre_recherche(const Arn *a, const NoeudRN *pn, const Element e) {
+int rechercherElementRecursifArn(const Arn *a, const NoeudRN *pn, const Element e) {
 
     if(pn == NULL)	return 0;
-    else if(compare_element(e,pn->info) >0)	return SousArbre_recherche(a, pn->filsDroit, e);
-    else if(compare_element(e,pn->info) <0)	return SousArbre_recherche(a, pn->filsGauche, e);
+    else if(compare_element(e,pn->info) >0)	return rechercherElementRecursifArn(a, pn->filsDroit, e);
+    else if(compare_element(e,pn->info) <0)	return rechercherElementRecursifArn(a, pn->filsGauche, e);
     else 	return 1;
 
 }
 
-void SousArbre_affiche(const Arn *a, const NoeudRN *pn, unsigned int *nb_espaces) {
-    for(unsigned int i=0; i<*nb_espaces; i++)
-        printf(" ");
-
-    if(pn!=NULL)
-    {
-        if(pn->noir == 1)	printf("(n)");
-        else 			printf("(r)");
-        afficher_element(pn->info);
-        *nb_espaces =+2;
-        SousArbre_affiche(a, pn->filsGauche, nb_espaces);
-        SousArbre_affiche(a, pn->filsGauche, nb_espaces);
-    }
-    else
-        printf(" - \n");
-}
 
 
 static void testamentRecursif(NoeudRN *noeud) {
@@ -220,19 +207,9 @@ static void testamentRecursif(NoeudRN *noeud) {
     }
 }
 
-void ArbreRN_affiche(const Arn *a) {
-
-    unsigned int nbSpaces = 0;
-    printf("\n");
-    SousArbre_affiche(a, a->racine,&nbSpaces);
-    printf("\n");
-}
-
 int rechercherElementDansArn(const Arn *arbreRN, Element element) {
-    return SousArbre_recherche(arbreRN,arbreRN->racine,element);
+    return rechercherElementRecursifArn(arbreRN, arbreRN->racine, element);
 }
-
-
 
 
 static int idnumer = 0;

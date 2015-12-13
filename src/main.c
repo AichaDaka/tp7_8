@@ -49,7 +49,7 @@ int main(int argc, char const *ar[]) {
     int i;
 
     srand((unsigned) time(NULL));
-    for (i = 0; i < 40; ++i) {
+    for (i = 0; i < 50; ++i) {
         int valeur = rand() % (valMax + 1);
         insererElementDansCollection(&a, valeur);
 
