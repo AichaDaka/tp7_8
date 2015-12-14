@@ -5,6 +5,9 @@
 
 static void testamentRecursif(NoeudRN *noeud);
 static int insertionArn(Arn *a, NoeudRN **pn, const Element e);
+static void insertionArn2(NoeudRN **pNoeud, const Element element);
+static void rotationRecursif(NoeudRN **noeud);
+static void rotationArn(Arn* arn);
 
 void SousArbre_init(NoeudRN *n, const Element e) {
     n->info = e;
@@ -13,6 +16,14 @@ void SousArbre_init(NoeudRN *n, const Element e) {
     n->noir = 0;
 }
 
+NoeudRN* creerNoeud(const Element element){
+    NoeudRN *n = malloc(sizeof(NoeudRN));
+    n->info = element;
+    n->filsDroit = NULL;
+    n->filsGauche = NULL;
+    n->noir = 0;
+    return n;
+}
 
 void initialiserArn(Arn *arbreRN) {
     arbreRN->racine = NULL;
@@ -22,7 +33,7 @@ void testamentArn(Arn *arbreRN) {
     testamentRecursif(arbreRN->racine);
 }
 
-NoeudRN *SousArbre_cree(Arn *a, const Element e) {
+NoeudRN *SousArbre_cree(const Element e) {
     NoeudRN *pn = malloc(sizeof(NoeudRN));
     SousArbre_init(pn, e);
     return pn;
@@ -31,12 +42,12 @@ NoeudRN *SousArbre_cree(Arn *a, const Element e) {
 
 void insererElementDansArn(Arn *a, const Element e) {
     if (a->racine == NULL) {
-        a->racine = SousArbre_cree(a, e);
+        a->racine =creerNoeud(e);
         a->racine->noir = 1;
     }
     else {
-        insertionArn(a, &(a->racine), e);
-        a->racine->noir = 1;
+        insertionArn2(&(a->racine), e);
+        rotationArn(a);
     }
 }
 
@@ -98,8 +109,29 @@ NoeudRN* SousArbre_rotationDroite(NoeudRN *racine)
     return nouvelleRacine;
 }
 
-static void insertionArn2(Arn *a, NoeudRN **pn, const Element e){
+static void insertionArn2(NoeudRN **pNoeud, const Element element){
+    if (*pNoeud == NULL) {
+        *pNoeud = creerNoeud(element);
+    } else {
+        if (compare_element(element, (*pNoeud)->info) > 0) { // element > info => on va à droite
 
+            insertionArn2(&((*pNoeud)->filsDroit), element);
+
+        } else if (compare_element(element, (*pNoeud)->info) < 0) { //element < info => on va à gauche
+            insertionArn2(&((*pNoeud)->filsGauche), element);
+        }
+    }
+}
+
+static void rotationRecursif(NoeudRN **noeud){
+
+    if(*noeud != NULL){
+
+    }
+
+}
+static void rotationArn(Arn* arn){
+    rotationRecursif(&arn->racine);
 }
 
 static int insertionArn(Arn *a, NoeudRN **pn, const Element e) {
@@ -108,7 +140,7 @@ static int insertionArn(Arn *a, NoeudRN **pn, const Element e) {
     {
         if((*pn)->filsDroit == NULL)
         {
-            (*pn)->filsDroit = SousArbre_cree(a, e);
+            (*pn)->filsDroit = SousArbre_cree(e);
             if((*pn)->noir == 0)	return 2;		//Désequilibre avec insersion à droite
             else return 0;		//Pas de désequilibre
         }
@@ -148,7 +180,7 @@ static int insertionArn(Arn *a, NoeudRN **pn, const Element e) {
     {
         if((*pn)->filsGauche == NULL)
         {
-            (*pn)->filsGauche = SousArbre_cree(a, e);
+            (*pn)->filsGauche = SousArbre_cree(e);
             if((*pn)->noir == 0)	return 1;		//Désequilibre avec insertion à gauche
             else return 0;		//Pas de désequilibre
         }
