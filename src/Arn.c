@@ -254,7 +254,7 @@ static void afficherNoeud(const NoeudRN *noeud, FILE *file) {
     if (noeud->filsGauche != NULL || noeud->filsDroit != NULL) {
 
         if (noeud->filsGauche != NULL){
-            if(noeud->noir == 1){
+            if(noeud->filsGauche->noir == 1){
                 fprintf(file, "%d [fillcolor=black]", noeud->filsGauche->info);
             } else {
                 fprintf(file, "%d [fillcolor=red]", noeud->filsGauche->info);
@@ -264,7 +264,7 @@ static void afficherNoeud(const NoeudRN *noeud, FILE *file) {
             fprintf(file, "id%d [shape=point]", idnumer++);
         fprintf(file, " ");
         if (noeud->filsDroit != NULL){
-            if(noeud->noir == 1){
+            if(noeud->filsDroit->noir == 1){
                 fprintf(file, "%d [fillcolor=black]", noeud->filsDroit->info);
             } else {
                 fprintf(file, "%d [fillcolor=red]", noeud->filsDroit->info);
