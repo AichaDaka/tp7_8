@@ -5,8 +5,7 @@
 
 static void testamentRecursif(NoeudRN *noeud);
 static int insertionArn(Arn *a, NoeudRN **pn, const Element e);
-static void insertionArn2(NoeudRN **pNoeud, const Element element);
-static void rotationRecursif(NoeudRN **noeud);
+static void insertionArn2(NoeudRN **pNoeud,NoeudRN* pere, const Element element);
 static void rotationArn(Arn* arn);
 
 void SousArbre_init(NoeudRN *n, const Element e) {
@@ -20,8 +19,9 @@ NoeudRN* creerNoeud(const Element element){
     NoeudRN *n = malloc(sizeof(NoeudRN));
     n->info = element;
     n->filsDroit = NULL;
+    n->pere = NULL;
     n->filsGauche = NULL;
-    n->noir = 0;
+    n->noir = 0; // coloration du noeud en rouge
     return n;
 }
 
@@ -46,7 +46,7 @@ void insererElementDansArn(Arn *a, const Element e) {
         a->racine->noir = 1;
     }
     else {
-        insertionArn2(&(a->racine), e);
+        insertionArn2(&(a->racine),a->racine->pere, e);
         rotationArn(a);
     }
 }
@@ -109,29 +109,24 @@ NoeudRN* SousArbre_rotationDroite(NoeudRN *racine)
     return nouvelleRacine;
 }
 
-static void insertionArn2(NoeudRN **pNoeud, const Element element){
+static void insertionArn2(NoeudRN **pNoeud, NoeudRN * noeudPere, const Element element){
     if (*pNoeud == NULL) {
         *pNoeud = creerNoeud(element);
+        (*pNoeud)->pere = noeudPere;
     } else {
         if (compare_element(element, (*pNoeud)->info) > 0) { // element > info => on va à droite
 
-            insertionArn2(&((*pNoeud)->filsDroit), element);
+            insertionArn2(&((*pNoeud)->filsDroit),*pNoeud, element);
 
         } else if (compare_element(element, (*pNoeud)->info) < 0) { //element < info => on va à gauche
-            insertionArn2(&((*pNoeud)->filsGauche), element);
+            insertionArn2(&((*pNoeud)->filsGauche),*pNoeud, element);
         }
     }
 }
 
-static void rotationRecursif(NoeudRN **noeud){
 
-    if(*noeud != NULL){
-
-    }
-
-}
 static void rotationArn(Arn* arn){
-    rotationRecursif(&arn->racine);
+
 }
 
 static int insertionArn(Arn *a, NoeudRN **pn, const Element e) {

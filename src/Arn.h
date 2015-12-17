@@ -8,6 +8,7 @@ typedef struct NoeudRN
 {
     struct NoeudRN *filsGauche;
     struct NoeudRN *filsDroit;
+    struct NoeudRN * pere;
     Element info;
     int noir;
 } NoeudRN;
